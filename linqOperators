@@ -1,0 +1,54 @@
+var users = new List<User>
+{
+    new User { Id = 1, Name = "Anna", Age = 20, City = "Moscow" },
+    new User { Id = 2, Name = "Boris", Age = 35, City = "Saint-Petersburg" },
+    new User { Id = 3, Name = "Victor", Age = 20, City = "Moscow" },
+    new User { Id = 4, Name = "Darya", Age = 42, City = "Kazan" }
+};
+
+. Filtration (to filter collection) Example (Where):
+
+var moscowUsers = users.Where(u => u.City == "Moscow")
+
+output: Anna(20), Victor(20)
+
+. Projection (to transform collection to other view, for example we need only one property or we need to create new object) Example (Select):
+
+var users = users.Select(u => u.Name);
+
+output: Anna, Boris, Darya, Victor
+
+. Sorting (to order collection) Example (OrderBy, ThenBy):
+
+var sortedUsers = users.OrderBy(u => u.Age).ThenBy(u => u.Name);
+
+output: Anna(20), Victor(20), Boris(35), Darya(42)
+
+. Aggregation (when a single summary number or value needs to be calculated from an entire collection) Example (Average, Count, Sum):
+
+double averageAge = users.Average(u => u.Age);
+
+output = 29.25
+
+. Grouping (to organise elements of a collectionn into groups based on shared key) Example (GroupBy):
+
+var groupedByCity = users.GroupBy(u => u.City);
+
+foreach (var group in groupedByCity)
+{
+    Console.WriteLine($"City: {group.Key}");
+    foreach (var user in group)
+    {
+        Console.WriteLine($" - {user.Name}");
+    }
+}
+
+output:
+
+City: Moscow
+- Anna
+- Victor
+City: Saint-Petersburg
+- Boris
+City: Kazan
+- Darya
